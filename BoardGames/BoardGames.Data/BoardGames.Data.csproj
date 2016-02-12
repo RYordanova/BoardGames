@@ -70,6 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BoardGames.Common\BoardGames.Common.csproj">
+      <Project>{d40591ab-ddb9-4999-af4a-0113f89497f4}</Project>
+      <Name>BoardGames.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BoardGames.Models\BoardGames.Models.csproj">
       <Project>{e35681df-29c0-4e5a-980b-4d4c24d72a61}</Project>
       <Name>BoardGames.Models</Name>
