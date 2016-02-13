@@ -5,7 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using BoardGames.Web.ViewModels;
+using BoardGames.Web.Models;
 using BoardGames.Models;
 using BoardGames.Data;
 
