@@ -5,11 +5,13 @@ namespace BoardGames.Web.App_Start
 {
     using System;
     using System.Web;
+    using Infrastructure.Caching;
     using Data;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
     using Ninject.Web.Common;
+    using System.Data.Entity;
 
     public static class NinjectWebCommon 
     {
@@ -61,7 +63,9 @@ namespace BoardGames.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<DbContext>().To<BoardGamesDbContext>();
             kernel.Bind<IBoardGamesData>().To<BoardGamesData>();
+            kernel.Bind<ICacheService>().To<InMemoryCache>();
         }        
     }
 }
