@@ -1,4 +1,4 @@
-﻿namespace BoardGames.Data
+﻿namespace BoardGames.Data.Common.Repository
 {
     using System;
     using System.Data.Entity;
@@ -70,7 +70,7 @@
             }
         }
 
-        public virtual void Delete(object id)
+        public virtual void Delete(int id)
         {
             var entity = this.GetById(id);
 
@@ -85,6 +85,16 @@
             DbEntityEntry entry = this.Context.Entry(entity);
 
             entry.State = EntityState.Detached;
+        }
+
+        public int SaveChanges()
+        {
+            return this.Context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            this.Context.Dispose();
         }
     }
 }

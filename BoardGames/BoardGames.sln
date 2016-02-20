@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGames.Data", "BoardGam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGames.Common", "BoardGames.Common\BoardGames.Common.csproj", "{D40591AB-DDB9-4999-AF4A-0113F89497F4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{12E309EC-9646-45B5-84FD-82212CAFBCDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGames.Data.Common", "BoardGames.Data.Common\BoardGames.Data.Common.csproj", "{6AB01450-FD8A-4F61-BB6C-941764CD9125}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +43,16 @@ Global
 		{D40591AB-DDB9-4999-AF4A-0113F89497F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D40591AB-DDB9-4999-AF4A-0113F89497F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D40591AB-DDB9-4999-AF4A-0113F89497F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AB01450-FD8A-4F61-BB6C-941764CD9125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB01450-FD8A-4F61-BB6C-941764CD9125}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB01450-FD8A-4F61-BB6C-941764CD9125}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AB01450-FD8A-4F61-BB6C-941764CD9125}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{13D30DD4-9AC9-4834-890E-69114A5CE158} = {12E309EC-9646-45B5-84FD-82212CAFBCDE}
+		{6AB01450-FD8A-4F61-BB6C-941764CD9125} = {12E309EC-9646-45B5-84FD-82212CAFBCDE}
 	EndGlobalSection
 EndGlobal

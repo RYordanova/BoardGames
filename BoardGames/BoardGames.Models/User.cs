@@ -1,19 +1,25 @@
 ﻿namespace BoardGames.Models
 {
+    using System;
     using System.ComponentModel;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using Data.Common.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    public class User : IdentityUser
+    public class User : IdentityUser, IDeletableEntity
     {
         [DefaultValue(0)]
         public int Rating { get; set; }
 
-        public string RoomId { get; set; }
+        public int? RoomId { get; set; }
 
         public virtual Room Room { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

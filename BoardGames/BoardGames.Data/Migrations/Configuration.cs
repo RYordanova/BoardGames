@@ -2,6 +2,7 @@ namespace BoardGames.Data.Migrations
 {
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using BoardGames.Common;
     using Common;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;

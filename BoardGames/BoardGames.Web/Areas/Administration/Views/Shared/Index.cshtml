@@ -1,8 +1,0 @@
-﻿@using BoardGames.Web.Areas.Administration.ViewModels;
-@{
-    const string ControllerName = "User";
-    ViewBag.Title = ControllerName;
-}
-<h2>@ViewBag.Title</h2>
-@(Html.FullFeaturedGrid<UserViewModel>(ControllerName, m => m.Id))
-

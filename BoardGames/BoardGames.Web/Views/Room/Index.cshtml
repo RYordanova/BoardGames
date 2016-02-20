@@ -1,0 +1,37 @@
+﻿@using Kendo.Mvc.UI
+<br />
+<br />
+@(Html.Kendo().Grid<BoardGames.Models.Room>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+      columns.Bound(c => c.Name);
+      columns.Bound(c => c.Capacity);
+      columns.Bound(c => c.CreatedOn);
+      columns.Command(command => { command.Edit(); }).Width(180);
+      columns.Template(@<text></text>).ClientTemplate("<a href='" + Url.Action("Join") + "/#=Name#' onclick='return join()'>Join</a>");
+      })
+      .ToolBar(toolbar =>
+      {
+          toolbar.Create();
+      })
+      .ColumnMenu()
+      .Editable(editable => editable.Mode(GridEditMode.InLine))
+      .Pageable()
+      .Navigatable()
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.MultipleColumn);
+      })
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.Id))
+          .Read(read => read.Action("Rooms_Read", "Room"))
+          .Create(create => create.Action("Rooms_Create", "Room"))
+          .Update(update => update.Action("Rooms_Update", "Room"))
+          .Destroy(destroy => destroy.Action("Rooms_Destroy", "Room"))
+
+      )
+)

@@ -12,6 +12,9 @@
     {
         protected void Application_Start()
         {
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
+
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<BoardGamesDbContext, Configuration>());
             AutoMapperConfig.Execute();
             AreaRegistration.RegisterAllAreas();

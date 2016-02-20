@@ -1,8 +1,9 @@
-﻿namespace BoardGames.Data
+﻿namespace BoardGames.Data.Common.Repository
 {
+    using System;
     using System.Linq;
 
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> : IDisposable where T : class
     {
         IQueryable<T> All();
 
@@ -14,8 +15,10 @@
 
         void Delete(T entity);
 
-        void Delete(object id);
+        void Delete(int id);
 
         void Detach(T entity);
+
+        int SaveChanges();
     }
 }

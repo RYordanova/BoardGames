@@ -5,7 +5,9 @@
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
-    public class Room
+    using Data.Common.Models;
+
+    public class Room : AuditInfo, IDeletableEntity
     {
         private ICollection<User> users;
 
@@ -24,8 +26,9 @@
         [DefaultValue(4)]
         public int Capacity { get; set; }
 
-        [Required]
-        public DateTime CreationDate { get; set; }
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
 
         public virtual ICollection<User> Users
         {
