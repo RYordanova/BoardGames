@@ -26,9 +26,6 @@
         [DefaultValue(4)]
         public int Capacity { get; set; }
 
-        [Required]
-        public DateTime CreationDate { get; set; }
-
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }

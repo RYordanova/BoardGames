@@ -19,7 +19,7 @@
             return new BoardGamesDbContext();
         }
 
-        public System.Data.Entity.DbSet<BoardGames.Models.Room> Rooms { get; set; }
+        public IDbSet<BoardGames.Models.Room> Rooms { get; set; }
 
         public override int SaveChanges()
         {
@@ -30,6 +30,7 @@
         private void ApplyAuditInfoRules()
         {
             // Approach via @julielerman: http://bit.ly/123661P
+
             foreach (var entry in
                 this.ChangeTracker.Entries()
                     .Where(

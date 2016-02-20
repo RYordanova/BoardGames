@@ -35,7 +35,7 @@ namespace BoardGames.Web.Controllers
                 Id = room.Id,
                 Name = room.Name,
                 Capacity = room.Capacity,
-                CreationDate = room.CreationDate
+                CreatedOn = room.CreatedOn
             });
 
             return Json(result);
@@ -53,7 +53,7 @@ namespace BoardGames.Web.Controllers
                     Capacity = room.Capacity
                 };
 
-                entity.CreationDate = DateTime.Now;
+                entity.CreatedOn = DateTime.Now;
                 this.rooms.Add(entity);
                 this.rooms.SaveChanges();
                 newId = entity.Id;
@@ -75,7 +75,7 @@ namespace BoardGames.Web.Controllers
                     Id = room.Id,
                     Name = room.Name,
                     Capacity = room.Capacity,
-                    CreationDate = room.CreationDate
+                    CreatedOn = room.CreatedOn
                 };
 
                 db.Rooms.Attach(entity);
@@ -96,7 +96,7 @@ namespace BoardGames.Web.Controllers
                     Id = room.Id,
                     Name = room.Name,
                     Capacity = room.Capacity,
-                    CreationDate = room.CreationDate
+                    CreatedOn = room.CreatedOn
                 };
 
                 db.Rooms.Attach(entity);
