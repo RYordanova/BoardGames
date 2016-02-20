@@ -12,6 +12,8 @@ namespace BoardGames.Web.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using System.Data.Entity;
+    using Data.Common.Repository;
+    using Data.Common.Models;
 
     public static class NinjectWebCommon 
     {
@@ -64,8 +66,12 @@ namespace BoardGames.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<DbContext>().To<BoardGamesDbContext>();
-            kernel.Bind<IBoardGamesData>().To<BoardGamesData>();
+            //kernel.Bind<IBoardGamesData>().To<BoardGamesData>();
             kernel.Bind<ICacheService>().To<InMemoryCache>();
+            kernel.Bind(typeof(IDeletableEntityRepository<>))
+                .To(typeof(DeletableEntityRepository<>));
+
+            kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
         }        
     }
 }

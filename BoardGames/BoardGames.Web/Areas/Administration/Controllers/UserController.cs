@@ -1,83 +1,135 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
-using BoardGames.Data;
-using BoardGames.Web.Infrastructure.Caching;
-
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
-using BoardGames.Web.Areas.Administration.ViewModels;
+using Kendo.Mvc.UI;
 using BoardGames.Models;
-using System.Web.Security;
+using BoardGames.Data;
 
 namespace BoardGames.Web.Areas.Administration.Controllers
 {
-    public class UserController : KendoGridAdministrationController
+    public class UserController : Controller
     {
-        private readonly ICacheService service;
-
-        public UserController(IBoardGamesData data, ICacheService service)
-            : base(data)
-        {
-            this.service = service;
-        }
+        private BoardGamesDbContext db = new BoardGamesDbContext();
 
         public ActionResult Index()
         {
             return View();
         }
 
-        protected override IEnumerable GetData()
+        public ActionResult Users_Read([DataSourceRequest]DataSourceRequest request)
         {
-            return this.Data
-                .Users
-                .All()
-                .ProjectTo<UserViewModel>();
+            IQueryable<User> users = db.Users;
+            DataSourceResult result = users.ToDataSourceResult(request, user => new {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName
+            });
+
+            return Json(result);
         }
 
-        protected override T GetById<T>(object id)
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Users_Create([DataSourceRequest]DataSourceRequest request, User user)
         {
-            return this.Data.Users.GetById(id) as T;
-        }
-
-        [HttpPost]
-        public ActionResult Create([DataSourceRequest]DataSourceRequest request, UserViewModel model)
-        {
-            var dbModel = base.Create<User>(model);
-            if (dbModel != null) model.Id = dbModel.Id;
-            this.ClearUserCache();
-            return this.GridOperation(model, request);
-        }
-
-        [HttpPost]
-        public ActionResult Update([DataSourceRequest]DataSourceRequest request, UserViewModel model)
-        {
-
-            var role = Roles.GetRolesForUser("Administrator");
-            base.Update<User, UserViewModel>(model, model.Id);
-            this.ClearUserCache();
-            return this.GridOperation(model, request);
-        }
-
-        [HttpPost]
-        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, UserViewModel model)
-        {
-            if (model != null && ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var user = this.Data.Users.GetById(model.Id);
-                this.Data.Users.Delete(user);
-                this.Data.SaveChanges();
+                var entity = new User
+                {
+                    Rating = user.Rating,
+                    RoomId = user.RoomId,
+                    Email = user.Email,
+                    EmailConfirmed = user.EmailConfirmed,
+                    PasswordHash = user.PasswordHash,
+                    SecurityStamp = user.SecurityStamp,
+                    PhoneNumber = user.PhoneNumber,
+                    PhoneNumberConfirmed = user.PhoneNumberConfirmed,
+                    TwoFactorEnabled = user.TwoFactorEnabled,
+                    LockoutEndDateUtc = user.LockoutEndDateUtc,
+                    LockoutEnabled = user.LockoutEnabled,
+                    AccessFailedCount = user.AccessFailedCount,
+                    UserName = user.UserName
+                };
+
+                db.Users.Add(entity);
+                db.SaveChanges();
+                user.Id = entity.Id;
             }
 
-            this.ClearUserCache();
-            return this.GridOperation(model, request);
+            return Json(new[] { user }.ToDataSourceResult(request, ModelState));
         }
 
-        private void ClearUserCache()
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Users_Update([DataSourceRequest]DataSourceRequest request, User user)
         {
-            this.service.Clear("user");
+            if (ModelState.IsValid)
+            {
+                var entity = new User
+                {
+                    Id = user.Id,
+                    Rating = user.Rating,
+                    RoomId = user.RoomId,
+                    Email = user.Email,
+                    EmailConfirmed = user.EmailConfirmed,
+                    PasswordHash = user.PasswordHash,
+                    SecurityStamp = user.SecurityStamp,
+                    PhoneNumber = user.PhoneNumber,
+                    PhoneNumberConfirmed = user.PhoneNumberConfirmed,
+                    TwoFactorEnabled = user.TwoFactorEnabled,
+                    LockoutEndDateUtc = user.LockoutEndDateUtc,
+                    LockoutEnabled = user.LockoutEnabled,
+                    AccessFailedCount = user.AccessFailedCount,
+                    UserName = user.UserName
+                };
+
+                db.Users.Attach(entity);
+                db.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return Json(new[] { user }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Users_Destroy([DataSourceRequest]DataSourceRequest request, User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var entity = new User
+                {
+                    Id = user.Id,
+                    Rating = user.Rating,
+                    RoomId = user.RoomId,
+                    Email = user.Email,
+                    EmailConfirmed = user.EmailConfirmed,
+                    PasswordHash = user.PasswordHash,
+                    SecurityStamp = user.SecurityStamp,
+                    PhoneNumber = user.PhoneNumber,
+                    PhoneNumberConfirmed = user.PhoneNumberConfirmed,
+                    TwoFactorEnabled = user.TwoFactorEnabled,
+                    LockoutEndDateUtc = user.LockoutEndDateUtc,
+                    LockoutEnabled = user.LockoutEnabled,
+                    AccessFailedCount = user.AccessFailedCount,
+                    UserName = user.UserName
+                };
+
+                db.Users.Attach(entity);
+                db.Users.Remove(entity);
+                db.SaveChanges();
+            }
+
+            return Json(new[] { user }.ToDataSourceResult(request, ModelState));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
