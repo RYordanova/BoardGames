@@ -21,26 +21,34 @@ namespace BoardGames.Web.Controllers
             this.users = users;
         }
 
-        public ActionResult Index(string name)
+        public ActionResult Index(int id)
         {
-            var currentRoom = this.rooms.All().Where(r => r.Name == name).FirstOrDefault();
+            var currentRoom = this.rooms.GetById((object)id);
 
-            var id = User.Identity.GetUserId();
-            var user = this.users.All().Where(u => u.Id == id).FirstOrDefault();
+            var userId = User.Identity.GetUserId();
+            var user = this.users.GetById((object)userId);
 
-            if (user.RoomId == null && currentRoom.Capacity > currentRoom.Users.Count)
+            if (user.RoomId == null)
             {
-                try
+                if (currentRoom.Capacity > currentRoom.Users.Count)
                 {
-                    user.RoomId = currentRoom.Id;
-                    this.users.SaveChanges();
-                    currentRoom.Users.Add(user);
-                    this.rooms.SaveChanges();
+                    try
+                    {
+                        user.RoomId = currentRoom.Id;
+                        this.users.SaveChanges();
+                        currentRoom.Users.Add(user);
+                        this.rooms.SaveChanges();
+                    }
+                    catch
+                    {
+                        return Redirect(currentRoom.Name);
+                    }
                 }
-                catch
-                {
-                    return Redirect(currentRoom.Name);
+                else {
+                    this.TempData["Notification"] = "This room is full!";
+                    return RedirectToAction("Index", "Room");
                 }
+
             }
             else if(user.RoomId != currentRoom.Id)
             {
