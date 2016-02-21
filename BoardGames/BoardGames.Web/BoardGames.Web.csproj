@@ -1113,6 +1113,7 @@
     <Content Include="Scripts\kendo\kendo.window.min.js.map" />
     <Content Include="Views\Room\Index.cshtml" />
     <Content Include="Views\Join\Index.cshtml" />
+    <Content Include="Views\Join\_IndexPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

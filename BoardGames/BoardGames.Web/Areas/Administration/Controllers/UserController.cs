@@ -10,11 +10,21 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using BoardGames.Models;
 using BoardGames.Data;
+using BoardGames.Data.Common.Repository;
+using BoardGames.Web.Areas.Administration.ViewModels;
+using AutoMapper.QueryableExtensions;
 
 namespace BoardGames.Web.Areas.Administration.Controllers
 {
     public class UserController : Controller
     {
+        IDeletableEntityRepository<User> users;
+
+        public UserController(IDeletableEntityRepository<User> users)
+        {
+            this.users = users;
+        }
+
         private BoardGamesDbContext db = new BoardGamesDbContext();
 
         public ActionResult Index()
@@ -37,31 +47,25 @@ namespace BoardGames.Web.Areas.Administration.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Users_Create([DataSourceRequest]DataSourceRequest request, User user)
         {
+            var newId = "";
             if (ModelState.IsValid)
             {
                 var entity = new User
                 {
-                    Rating = user.Rating,
-                    RoomId = user.RoomId,
+                    UserName = user.UserName,
                     Email = user.Email,
-                    EmailConfirmed = user.EmailConfirmed,
-                    PasswordHash = user.PasswordHash,
-                    SecurityStamp = user.SecurityStamp,
-                    PhoneNumber = user.PhoneNumber,
-                    PhoneNumberConfirmed = user.PhoneNumberConfirmed,
-                    TwoFactorEnabled = user.TwoFactorEnabled,
-                    LockoutEndDateUtc = user.LockoutEndDateUtc,
-                    LockoutEnabled = user.LockoutEnabled,
-                    AccessFailedCount = user.AccessFailedCount,
-                    UserName = user.UserName
+                    CreatedOn = DateTime.Now
                 };
-
-                db.Users.Add(entity);
-                db.SaveChanges();
-                user.Id = entity.Id;
+                
+                this.users.Add(entity);
+                this.users.SaveChanges();
+                newId = entity.Id;
             }
 
-            return Json(new[] { user }.ToDataSourceResult(request, ModelState));
+            var postToDisplay = this.users.All().Project()
+                .To<UserViewModel>()
+                .FirstOrDefault(x => x.Id == newId);
+            return Json(new[] { postToDisplay }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

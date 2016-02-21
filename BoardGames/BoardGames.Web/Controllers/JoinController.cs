@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using BoardGames.Data;
 using BoardGames.Data.Common.Repository;
 using BoardGames.Models;
 using Microsoft.AspNet.Identity;
@@ -24,47 +26,37 @@ namespace BoardGames.Web.Controllers
         public ActionResult Index(int id)
         {
             var currentRoom = this.rooms.GetById((object)id);
-
+            // TODO: Error handling for null currentRoom
             var userId = User.Identity.GetUserId();
             var user = this.users.GetById((object)userId);
 
-            if (user.RoomId == null)
-            {
-                if (currentRoom.Capacity > currentRoom.Users.Count)
-                {
-                    try
-                    {
-                        user.RoomId = currentRoom.Id;
-                        this.users.SaveChanges();
-                        currentRoom.Users.Add(user);
-                        this.rooms.SaveChanges();
-                    }
-                    catch
-                    {
-                        return Redirect(currentRoom.Name);
-                    }
-                }
-                else {
-                    this.TempData["Notification"] = "This room is full!";
-                    return RedirectToAction("Index", "Room");
-                }
-
-            }
-            else if(user.RoomId != currentRoom.Id)
-            {
-                this.TempData["Notification"] = "Can't join two rooms. Please leave room" + user.Room.Name + "first!";
-                return RedirectToAction("Index", "Room");
-            }
-            else
+            if (user.Room == null)
             {
                 if (currentRoom.Capacity == currentRoom.Users.Count)
                 {
                     this.TempData["Notification"] = "This room is full!";
                     return RedirectToAction("Index", "Room");
                 }
+                else
+                {
+                    user.Room = currentRoom;
+                    currentRoom.Users.Add(user);
+                    this.rooms.SaveChanges();
+                    return View();
+                }
             }
-
-            return View();
+            else
+            {
+                if (user.Room.Id == currentRoom.Id)
+                {
+                    return View();
+                }
+                else
+                {
+                    this.TempData["Notification"] = "Can't join two rooms. Please leave room " + user.Room.Name + " first!";
+                    return RedirectToAction("Index", "Room");
+                }
+            }
         }
     }
 }

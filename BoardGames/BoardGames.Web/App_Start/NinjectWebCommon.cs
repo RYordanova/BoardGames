@@ -65,7 +65,7 @@ namespace BoardGames.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<DbContext>().To<BoardGamesDbContext>();
+            kernel.Bind<DbContext>().To<BoardGamesDbContext>().InRequestScope();
             //kernel.Bind<IBoardGamesData>().To<BoardGamesData>();
             kernel.Bind<ICacheService>().To<InMemoryCache>();
             kernel.Bind(typeof(IDeletableEntityRepository<>))

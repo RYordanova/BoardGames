@@ -1,9 +1,9 @@
 namespace BoardGames.Data.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using BoardGames.Common;
-    using Common;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
@@ -41,7 +41,8 @@ namespace BoardGames.Data.Migrations
             var adminUser = new User
             {
                 Email = "admin@mysite.com",
-                UserName = "Administrator"
+                UserName = "Administrator",
+                CreatedOn = DateTime.Now
             };
 
             this.userManager.Create(adminUser, "admin123456");

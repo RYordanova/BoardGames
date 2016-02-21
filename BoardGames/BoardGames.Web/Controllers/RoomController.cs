@@ -59,10 +59,10 @@ namespace BoardGames.Web.Controllers
                 newId = entity.Id;
             }
 
-            var postToDisplay = this.rooms.All().Project()
+            var roomToDisplay = this.rooms.All().Project()
                 .To<RoomViewModel>()
                 .FirstOrDefault(x => x.Id == newId);
-            return Json(new[] { postToDisplay }.ToDataSourceResult(request, ModelState));
+            return Json(new[] { roomToDisplay }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

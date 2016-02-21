@@ -1,0 +1,33 @@
+﻿<h1>Hi</h1>
+
+<div>
+    <input type="text" id="message" value="message" />
+    <button id="send-message">Send</button>
+    <br />
+</div>
+<div id="messages">
+</div>
+<script>
+    var rooms = [];
+
+    $(document).ready(function () {
+
+        $.connection.hub.start();
+
+        var chat = $.connection.chat;
+
+        $('#send-message').click(function () {
+
+            var msg = $('#message').val();
+
+            chat.server.sendMessage(msg);
+        });
+
+        chat.client.addMessage = addMessage;
+    });
+
+    function addMessage(message) {
+        $('#messages').append('<div>' + message + '</div>');
+    }
+
+</script>

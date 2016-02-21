@@ -14,6 +14,7 @@
         {
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
+            RouteTable.Routes.MapHubs();
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<BoardGamesDbContext, Configuration>());
             AutoMapperConfig.Execute();
@@ -21,7 +22,6 @@
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            RouteTable.Routes.MapHubs();
         }
     }
 }

@@ -14,8 +14,8 @@ namespace BoardGames.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                 name: "Room",
-                url: "Room/Join/{name}",
-                defaults: new { controller = "Join", action = "Index", name = UrlParameter.Optional }
+                url: "Room/Join/{id}",
+                defaults: new { controller = "Join", action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "Default",

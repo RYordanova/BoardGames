@@ -9,7 +9,7 @@
       columns.Bound(c => c.Capacity);
       columns.Bound(c => c.CreatedOn);
       columns.Command(command => { command.Edit(); }).Width(180);
-      columns.Template(@<text></text>).ClientTemplate("<a href='" + Url.Action("Join") + "/#=Name#' onclick='return join()'>Join</a>");
+      columns.Template(@<text></text>).ClientTemplate("<a href='" + Url.Action("Join") + "/#=Id#'>Join</a>");
       })
       .ToolBar(toolbar =>
       {
