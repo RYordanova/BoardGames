@@ -27,7 +27,7 @@
     });
 
     function addMessage(message) {
-        $('#messages').append('<div>' + message + '</div>');
+        $('#messages').append($('<div>').text(message));
     }
 
 </script>
