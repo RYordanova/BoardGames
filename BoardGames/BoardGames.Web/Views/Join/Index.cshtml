@@ -1,11 +1,12 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
-
+<script src="~/Scripts/GameBoard/init.js"></script>
 <h2>Index</h2>
+<input type="button" value="Leave" onclick="location.href='@Url.Action("Leave", "Join" )'" />
 
-
-@Html.Partial("_IndexPartial")
-
+<div class="row">
+    <div class="col-md-8">@Html.Partial("_GameBoardPartial")</div>
+    <div class="col-md-4">@Html.Partial("_SideBarPartial")</div>
+</div>
 

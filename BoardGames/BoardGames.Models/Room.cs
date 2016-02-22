@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-
+    using System.ComponentModel.DataAnnotations.Schema;
     using Data.Common.Models;
 
     public class Room : AuditInfo, IDeletableEntity
@@ -20,6 +20,8 @@
         public int Id { get; set; }
 
         [Required]
+        [Index("Name", IsUnique = true)]
+        [MaxLength(16)]
         public string Name { get; set; }
 
         [Required]
@@ -40,6 +42,11 @@
             {
                 this.users = value;
             }
+        }
+
+        public bool IsFull()
+        {
+            return this.Capacity == this.Users.Count;
         }
     }
 }

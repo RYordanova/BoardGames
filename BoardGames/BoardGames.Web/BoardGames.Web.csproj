@@ -217,10 +217,11 @@
     <Compile Include="Controllers\JoinController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\Chat.cs" />
+    <Compile Include="Hubs\BoardGamesHub.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
     <Compile Include="Infrastructure\Caching\InMemoryCache.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\KendoHelpers.cs" />
@@ -455,6 +456,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\blue-pawn.png" />
+    <Content Include="Images\green-pawn.png" />
+    <Content Include="Images\red-pawn.png" />
+    <Content Include="Images\yellow-pawn.png" />
     <Content Include="Libraries\Kendo.Mvc.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -466,6 +471,9 @@
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\User\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\GameBoard\game-board.js" />
+    <Content Include="Scripts\GameBoard\init.js" />
+    <Content Include="Scripts\GameBoard\player.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1113,7 +1121,8 @@
     <Content Include="Scripts\kendo\kendo.window.min.js.map" />
     <Content Include="Views\Room\Index.cshtml" />
     <Content Include="Views\Join\Index.cshtml" />
-    <Content Include="Views\Join\_IndexPartial.cshtml" />
+    <Content Include="Views\Join\_SideBarPartial.cshtml" />
+    <Content Include="Views\Join\_GameBoardPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1137,6 +1146,10 @@
     <ProjectReference Include="..\BoardGames.Data\BoardGames.Data.csproj">
       <Project>{13d30dd4-9ac9-4834-890e-69114a5ce158}</Project>
       <Name>BoardGames.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BoardGames.Logic\BoardGames.Logic.csproj">
+      <Project>{4dd8ee8d-3ad6-4362-a257-e5793e6d0c0d}</Project>
+      <Name>BoardGames.Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\BoardGames.Models\BoardGames.Models.csproj">
       <Project>{e35681df-29c0-4e5a-980b-4d4c24d72a61}</Project>

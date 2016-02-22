@@ -32,7 +32,7 @@ namespace BoardGames.Web.Controllers
 
             if (user.Room == null)
             {
-                if (currentRoom.Capacity == currentRoom.Users.Count)
+                if (currentRoom.IsFull())
                 {
                     this.TempData["Notification"] = "This room is full!";
                     return RedirectToAction("Index", "Room");
@@ -57,6 +57,18 @@ namespace BoardGames.Web.Controllers
                     return RedirectToAction("Index", "Room");
                 }
             }
+        }
+
+        public ActionResult Leave()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = this.users.GetById((object)userId);
+            var room = this.rooms.All().Where(r => r.Id == user.RoomId).FirstOrDefault();
+
+            room.Users.Remove(user);
+            this.rooms.SaveChanges();
+
+            return RedirectToAction("Index", "Room");
         }
     }
 }

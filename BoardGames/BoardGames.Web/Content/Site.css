@@ -22,3 +22,63 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#board td {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+}
+
+#board .playerField {
+    width: 240px;
+    border: none;
+}
+
+#board .playerInfoWrapper {
+    margin: auto;
+}
+
+#board td.homeCell {
+    border-radius: 50%;
+}
+
+#board td.bluePawn {
+    background-image: url("../Images/blue-pawn.png");
+    background-size: 100% 100%;
+}
+
+#board td.redPawn {
+    background-image: url("../Images/red-pawn.png");
+    background-size: 100% 100%;
+}
+
+#board td.yellowPawn {
+    background-image: url("../Images/yellow-pawn.png");
+    background-size: 100% 100%;
+}
+
+#board td.greenPawn {
+    background-image: url("../Images/green-pawn.png");
+    background-size: 100% 100%;
+}
+
+#board .blue {
+    background-color: blue;
+}
+
+#board .red {
+    background-color: red;
+}
+
+#board .yellow {
+    background-color: yellow;
+}
+
+#board .green {
+    background-color: green;
+}
+
+#board td:after {
+    position: absolute;
+    content: attr(id);
+}
