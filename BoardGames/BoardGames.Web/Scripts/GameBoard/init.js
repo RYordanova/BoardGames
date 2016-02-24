@@ -80,7 +80,7 @@
                     break;
                 }
 
-                if (currentPawnState === states.IN_GAME && position === player.Pawns[i].Position) {
+                if (currentPawnState === states.IN_GAME && player.Pawns[i].State === currentPawnState && position === player.Pawns[i].Position) {
                     pawnIndex = i;
                     break;
                 }
