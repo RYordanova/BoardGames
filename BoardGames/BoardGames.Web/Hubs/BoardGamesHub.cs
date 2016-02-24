@@ -7,14 +7,15 @@ using BoardGames.Data.Common.Repository;
 using BoardGames.Models;
 using Microsoft.AspNet.SignalR;
 using BoardGames.Logic;
+using System.Collections.Concurrent;
 
 namespace BoardGames.Web.Hubs
 {
     public class BoardGamesHub : Hub
     {
-        private static IDictionary<string, string> connectionIdToRoomName = new Dictionary<string, string>();
-        private static IDictionary<string, string> connectionIdToUsername = new Dictionary<string, string>();
-        private static IDictionary<string, GameState> roomNameToGameState = new Dictionary<string, GameState>();
+        private static IDictionary<string, string> connectionIdToRoomName = new ConcurrentDictionary<string, string>();
+        private static IDictionary<string, string> connectionIdToUsername = new ConcurrentDictionary<string, string>();
+        private static IDictionary<string, GameState> roomNameToGameState = new ConcurrentDictionary<string, GameState>();
 
         public override Task OnConnected()
         {
@@ -34,7 +35,7 @@ namespace BoardGames.Web.Hubs
             }
             else
             {
-                this.Clients.Client(Context.ConnectionId).invalidMove();
+                this.Clients.Caller.invalidMove();
             }
         }
 

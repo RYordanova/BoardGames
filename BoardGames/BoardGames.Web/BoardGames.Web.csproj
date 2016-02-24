@@ -211,6 +211,9 @@
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\UserController.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserViewModel.cs" />
+    <Compile Include="Areas\Moderation\Controllers\RoomModerationController.cs" />
+    <Compile Include="Areas\Moderation\Models\RoomViewModel.cs" />
+    <Compile Include="Areas\Moderation\ModerationAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -472,6 +475,10 @@
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\User\Index.cshtml" />
+    <Content Include="Areas\Moderation\Views\RoomModeration\Index.cshtml" />
+    <Content Include="Areas\Moderation\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Moderation\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Moderation\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GameBoard\init.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1128,6 +1135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\RoomModeration\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

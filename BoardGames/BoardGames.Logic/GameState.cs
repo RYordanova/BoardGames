@@ -95,7 +95,6 @@
         public void RowUntilPossibleMove()
         {
             this.DiceValue = RowDice();
-            // TODO: Indicate skipped turn
             while (!this.CanMakeAnyMove())
             {
                 if (this.DiceValue != 6)

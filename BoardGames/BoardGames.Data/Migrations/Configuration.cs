@@ -28,6 +28,7 @@ namespace BoardGames.Data.Migrations
         private void SeedRoles(BoardGamesDbContext context)
         {
             context.Roles.AddOrUpdate(x => x.Name, new IdentityRole(GlobalConstants.AdminRole));
+            context.Roles.AddOrUpdate(x => x.Name, new IdentityRole(GlobalConstants.ModeratorRole));
             context.SaveChanges();
         }
 
@@ -48,6 +49,17 @@ namespace BoardGames.Data.Migrations
             this.userManager.Create(adminUser, "admin123456");
 
             this.userManager.AddToRole(adminUser.Id, GlobalConstants.AdminRole);
+
+            var modUser = new User
+            {
+                Email = "mod@mysite.com",
+                UserName = "Moderator",
+                CreatedOn = DateTime.Now
+            };
+
+            this.userManager.Create(modUser, "mod123456");
+
+            this.userManager.AddToRole(modUser.Id, GlobalConstants.ModeratorRole);
         }
     }
 }

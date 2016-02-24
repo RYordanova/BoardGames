@@ -55,7 +55,6 @@
                     }
                 }
             }
-            // TODO: visualize dice value and player in turn
         }
     });
 

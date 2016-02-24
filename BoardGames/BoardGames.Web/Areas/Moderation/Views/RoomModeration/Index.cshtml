@@ -1,16 +1,14 @@
 ﻿@using Kendo.Mvc.UI
 <br />
 <br />
-@(Html.Kendo().Grid<BoardGames.Web.Areas.Administration.ViewModels.UserViewModel>()
+@(Html.Kendo().Grid<BoardGames.Web.Areas.Moderation.Models.RoomViewModel>()
       .Name("grid")
       .Columns(columns =>
       {
-          columns.Bound(c => c.Username);
-          columns.Bound(c => c.Email);
-          columns.Bound(c => c.Raiting);
-          columns.Command(command => {command.Destroy(); }).Width(180);
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.UsersCount);
+        columns.Command(command => {command.Destroy(); }).Width(180);
       })
-      .ColumnMenu()
       .Editable(editable => editable.Mode(GridEditMode.InLine))
       .Pageable()
       .Sortable(sortable => {
@@ -21,7 +19,7 @@
       .DataSource(dataSource => dataSource
           .Ajax()
           .Model(model => model.Id(p => p.Id))
-          .Read(read => read.Action("Users_Read", "User"))
-          .Destroy(destroy => destroy.Action("Users_Destroy", "User"))
+          .Read(read => read.Action("Rooms_Read", "RoomModeration"))
+          .Destroy(destroy => destroy.Action("Rooms_Destroy", "RoomModeration"))
       )
 )
