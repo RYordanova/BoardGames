@@ -40,9 +40,9 @@
                         <li>@Html.ActionLink("Admin", "Index", "User", new { area = "Administration" }, null)</li>
                     }
 
-                    @*@if (User.IsInRole("Moderator")) {
-                        <li>@Html.ActionLink("Admin", "Index", "User", new { area = "Administration" }, null)</li>
-                    }*@
+                    @if (User.IsInRole("Moderator")) {
+                        <li>@Html.ActionLink("Moderator", "Index", "RoomModeration", new { area = "Moderation" }, null)</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
