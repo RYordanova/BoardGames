@@ -32,6 +32,7 @@
                     @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Room", "Index", "Room")</li>
+                        <li>@Html.ActionLink("Top Users", "Index", "Users")</li>
                     }
 
                     @if (User.IsInRole("Admin"))

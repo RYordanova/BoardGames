@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
-using BoardGames.Models;
-using BoardGames.Data;
-using BoardGames.Data.Common.Repository;
-using BoardGames.Web.Areas.Administration.ViewModels;
-using AutoMapper.QueryableExtensions;
-
-namespace BoardGames.Web.Areas.Administration.Controllers
+﻿namespace BoardGames.Web.Areas.Administration.Controllers
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.Mvc;
+    using AutoMapper.QueryableExtensions;
+    using BoardGames.Data;
+    using BoardGames.Data.Common.Repository;
+    using BoardGames.Models;
+    using BoardGames.Web.Areas.Administration.ViewModels;
+    using Kendo.Mvc.Extensions;
+    using Kendo.Mvc.UI;
+
     public class UserController : Controller
     {
         IDeletableEntityRepository<User> users;
@@ -102,30 +98,8 @@ namespace BoardGames.Web.Areas.Administration.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Users_Destroy([DataSourceRequest]DataSourceRequest request, User user)
         {
-            if (ModelState.IsValid)
-            {
-                var entity = new User
-                {
-                    Id = user.Id,
-                    Rating = user.Rating,
-                    RoomId = user.RoomId,
-                    Email = user.Email,
-                    EmailConfirmed = user.EmailConfirmed,
-                    PasswordHash = user.PasswordHash,
-                    SecurityStamp = user.SecurityStamp,
-                    PhoneNumber = user.PhoneNumber,
-                    PhoneNumberConfirmed = user.PhoneNumberConfirmed,
-                    TwoFactorEnabled = user.TwoFactorEnabled,
-                    LockoutEndDateUtc = user.LockoutEndDateUtc,
-                    LockoutEnabled = user.LockoutEnabled,
-                    AccessFailedCount = user.AccessFailedCount,
-                    UserName = user.UserName
-                };
-
-                db.Users.Attach(entity);
-                db.Users.Remove(entity);
-                db.SaveChanges();
-            }
+            this.users.Delete(user);
+            this.users.SaveChanges();
 
             return Json(new[] { user }.ToDataSourceResult(request, ModelState));
         }

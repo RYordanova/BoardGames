@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using AutoMapper;
-using BoardGames.Models;
-using BoardGames.Web.Infrastructure.Mapping;
-
-namespace BoardGames.Web.Areas.Administration.ViewModels
+﻿namespace BoardGames.Web.Areas.Administration.ViewModels
 {
+    using BoardGames.Models;
+    using BoardGames.Web.Infrastructure.Mapping;
+
     public class UserViewModel : IMapFrom<User>
     {
         public string Id { get; set; }

@@ -1,0 +1,23 @@
+﻿@model BoardGames.Web.Models.User.AllUsersViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Top Users</h2>
+
+<div class="container">
+    @foreach (var user in Model.Users)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <h4>@user.UserName @user.Rating</h4>
+                </div>
+            </div>
+        </div>
+        <hr />
+    }
+</div>
+
+@Html.Partial("_PagingPartial")
+

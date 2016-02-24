@@ -12,6 +12,7 @@ using System;
 
 namespace BoardGames.Web.Controllers
 {
+    [Authorize]
     public class RoomController : Controller
     {
         IDeletableEntityRepository<Room> rooms;

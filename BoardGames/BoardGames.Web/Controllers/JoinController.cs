@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace BoardGames.Web.Controllers
 {
+    [Authorize]
     public class JoinController : Controller
     {
         private readonly IDeletableEntityRepository<Room> rooms;

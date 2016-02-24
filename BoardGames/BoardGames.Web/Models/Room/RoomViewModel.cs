@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
-using BoardGames.Web.Infrastructure.Mapping;
-
-namespace BoardGames.Web.Models.Room
+﻿namespace BoardGames.Web.Models.Room
 {
+    using System;
+    using AutoMapper;
+    using BoardGames.Web.Infrastructure.Mapping;
+
     public class RoomViewModel : IMapFrom<BoardGames.Models.Room>, IHaveCustomMappings
     {
         public int Id { get; set; }
