@@ -24,10 +24,21 @@ namespace BoardGames.Web.Controllers
             this.users = users;
         }
 
-        public ActionResult Index(int id)
+        public ActionResult Index(string id)
         {
-            var currentRoom = this.rooms.GetById((object)id);
-            // TODO: Error handling for null currentRoom
+            int currentId;
+            bool isNumber = int.TryParse(id, out currentId);
+
+            if (!isNumber) {
+                return RedirectToAction("Index", "Room");
+            }
+
+            var currentRoom = this.rooms.GetById((object)currentId);
+            if(currentRoom == null)
+            {
+                return RedirectToAction("Index", "Room");
+            }
+
             var userId = User.Identity.GetUserId();
             var user = this.users.GetById((object)userId);
 

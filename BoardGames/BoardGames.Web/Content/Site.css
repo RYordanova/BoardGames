@@ -78,7 +78,7 @@ textarea {
     background-color: green;
 }
 
-#board td:after {
+/*#board td:after {
     position: absolute;
     content: attr(id);
-}
+}*/

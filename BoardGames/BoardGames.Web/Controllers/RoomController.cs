@@ -26,7 +26,7 @@ namespace BoardGames.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public ActionResult Rooms_Read([DataSourceRequest]DataSourceRequest request)
